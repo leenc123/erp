@@ -46,6 +46,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf # 挂载nginx配置文件
       - ./nginx/log:/var/log/nginx # 挂载日志
       - ./frontend:/usr/share/nginx/html # 挂载静态文件
+      - ./django/media:/usr/share/nginx/html/media:ro # 挂载 Django 媒体文件（只读）
     networks:
       - nginx_network
     depends_on:

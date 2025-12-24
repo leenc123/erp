@@ -1,8 +1,9 @@
 <template>
   <div style="height: 100vh;">
     <div class="logo" @click="$router.push('/')" style="width: 256px;display: flex;flex-direction: row;align-items: center;">
-      <img :src="logo" width="60" style="margin-top: -6px; margin-left: 8px;" />
-      <span v-if="!collapsed" style="color: #1890ff; margin-left: 6px; font-size: 14px">{{ ProjectName }}</span>
+      <img :src="logoSmall" height="62" style=" margin-left: -10px;" />
+      <img :src="logoTitle" v-if="!collapsed" height="62" style=" margin-left: 8px;" />
+      <!-- <span v-if="!collapsed" style="color: #1890ff; margin-left: 6px; font-size: 14px">{{ ProjectName }}</span> -->
       <!-- <img :src="group" width="100" style="margin-top: -6px; margin-left: 8px;" height="40" /> -->
     </div>
     <a-menu theme="light" mode="inline" :selectedKeys="selectedKeys" :openKeys="openKeys" :inline-collapsed="collapsed"
@@ -47,6 +48,8 @@
         openKeys: [],
         selectedKeys: [],
         logo: require('@/assets/logo.png'),
+        logoSmall: require('@/assets/logo_small.png'),
+        logoTitle: require('@/assets/logo_title.png'),
         group:require('@/assets/group.png')
         // wechatCustomerService: require('@/assets/wechat_customer_service.png'),
         // wechatExchange: require('@/assets/wechat_exchange.png'),
@@ -87,10 +90,10 @@
 
 <style scoped>
   .logo {
+    padding-inline: 18px;
     font-weight: bold;
     font-size: 20px;
     height: 64px;
-    padding: 16px;
     border-bottom: 1px solid #6662;
     cursor: pointer;
   }

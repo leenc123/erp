@@ -3,7 +3,7 @@
     <div>
       <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 5 }" :wrapper-col="{ span: 14 }">
         <a-form-model-item prop="username" label="用户名">
-          <a-input size="large" v-model="form.username"/>
+          <a-input size="large" v-model.lazy="form.username"/>
         </a-form-model-item>
         <a-form-model-item prop="password" label="密码">
           <a-input-password size="large" v-model="form.password"/>

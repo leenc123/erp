@@ -1,6 +1,8 @@
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 
 module.exports = {
+  // 基础配置
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   assetsDir: "static",
   configureWebpack: {
     plugins: [
@@ -27,12 +29,15 @@ module.exports = {
       },
     },
   },
-  devServer: {
-    // proxy: {
-    //   "/api": {
-    //     target: "http://114.218.158.78:12223",
-    //     changeOrigin: true,
-    //   },
-    // },
-  },
+  // 只在开发环境配置 devServer
+  ...(process.env.NODE_ENV === 'development' && {
+    devServer: {
+      proxy: {
+        "/api": {
+        target: "http://192.168.1.166:8000",
+        changeOrigin: true,
+      },
+      }
+    }
+  })
 };

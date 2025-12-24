@@ -41,8 +41,8 @@ npm config set registry https://registry.npmmirror.com/
 npm config set ignore-engines true
 # 安装yarn
 npm install -g yarn
-# yarn安装依赖包
-yarn install
+# yarn安装依赖包 忽略检查
+yarn install --ignore-engines
 # 在utils/config.js里设置自己的后端地址-baseUrl
 # 前端 运行
 yarn serve

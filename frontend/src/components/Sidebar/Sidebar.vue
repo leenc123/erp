@@ -1,8 +1,8 @@
 <template>
   <div style="height: 100vh;">
     <div class="logo" @click="$router.push('/')" style="width: 256px;display: flex;flex-direction: row;align-items: center;">
-      <img :src="logoSmall" height="62" style=" margin-left: -10px;" />
-      <img :src="logoTitle" v-if="!collapsed" height="62" style=" margin-left: 8px;" />
+      <img :src="logoSmall" height="52" style=" margin-left: -6px;" />
+      <img :src="logoTitle" v-if="!collapsed" height="52" style=" margin-left: 8px;" />
       <!-- <span v-if="!collapsed" style="color: #1890ff; margin-left: 6px; font-size: 14px">{{ ProjectName }}</span> -->
       <!-- <img :src="group" width="100" style="margin-top: -6px; margin-left: 8px;" height="40" /> -->
     </div>

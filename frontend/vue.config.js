@@ -1,6 +1,7 @@
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 
 module.exports = {
+  transpileDependencies: [],
   // 基础配置
   publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   assetsDir: "static",
@@ -18,13 +19,14 @@ module.exports = {
   css: {
     loaderOptions: {
       less: {
-        javascriptEnabled: true,
-        modifyVars: {
-          'primary-color': '#50799e',
-          'text-color': '#6e6e6e',
-          'border-color': '#eee',
-          'nice-blue': '#f0f'
-
+        lessOptions: {  // ✅ 添加 lessOptions 包装
+          javascriptEnabled: true,
+          modifyVars: {
+            'primary-color': '#50799e',
+            'text-color': '#6e6e6e',
+            'border-color': '#eee',
+            'nice-blue': '#f0f'
+          },
         },
       },
     },

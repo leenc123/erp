@@ -129,7 +129,6 @@
           this.items = data.results;
 
           this.init_echart(data.results);
-          console.log(resp);
         }).finally(() => {
           this.loading = false;
         });

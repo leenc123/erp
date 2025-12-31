@@ -184,6 +184,30 @@ export default {
   components: {
     MaterialsSelectModal: () => import("@/components/MaterialSelectModal/index"),
   },
+  watch: {
+    'form.client': {
+      handler(newVal) {
+        this.clientsItems.forEach(client => {
+          if (client.id === newVal) {
+            this.level = client.level;
+            console.log('materialItems:', this.materialItems);
+            console.log('client changed:', client);
+            this.materialItems.forEach(item => {
+              if (client.level === "1") {
+                item.sales_price = item.level_price1;
+              } else if (client.level === "2") {
+                item.sales_price = item.level_price2;
+              } else if (client.level === "3") {
+                item.sales_price = item.level_price3;
+              } else {
+                item.sales_price = item.retail_price;
+              }
+            });
+          }
+        });
+      }
+    },
+  },
   data() {
     return {
       description: "新增",
@@ -195,6 +219,7 @@ export default {
       loading: false,
       model: {},
       form: {},
+      level: undefined,
       rules: {
         number: [{ required: true, message: "请输入编号", trigger: "change" }],
         warehouse: [{ required: true, message: "请选择仓库", trigger: "change" }],
@@ -417,6 +442,15 @@ export default {
         this.$message.warn("产品已存在");
         return;
       }
+      if (this.level === "1") {
+        item.sales_price = item.level_price1;
+      } else if (this.level === "2") {
+        item.sales_price = item.level_price2;
+      } else if (this.level === "3") {
+        item.sales_price = item.level_price3;
+      } else {
+        item.sales_price = item.retail_price;
+      }
       this.materialItems = this.$functions.insertItem(this.materialItems, {
         id: item.id,
         goods: item.goods,
@@ -424,11 +458,13 @@ export default {
         name: item.goods_name,
         spec: item.goods_spec,
         unit: item.unit_name,
+        level_price1: item.level_price1,
+        level_price2: item.level_price2,
+        level_price3: item.level_price3,
         sales_quantity: 1,
-        sales_price: item.retail_price,
+        sales_price: item.sales_price,
         totalAmount: 1,
       });
-
       this.materialItems = [...this.materialItems];
       console.log(this.materialItems);
     },
@@ -482,7 +518,7 @@ export default {
               return {
                 goods: item.goods,
                 sales_quantity: item.sales_quantity,
-                sales_price: item.sales_price*(1+item.tax/100),
+                sales_price: item.sales_price * (1 + item.tax / 100),
               };
             }),
           };

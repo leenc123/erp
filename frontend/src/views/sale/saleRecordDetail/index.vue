@@ -6,6 +6,7 @@
       <section id="printContent">
         <a-spin :spinning="loading">
           <img id="barcode" style="float: right" />
+          <img id="logo" :src="logo" class="logo-img" style="cursor: pointer; float: left;" />
           <a-descriptions bordered>
             <a-descriptions-item label="销售编号">
               {{ info.number }}
@@ -60,6 +61,7 @@
 export default {
     data() {
       return {
+        logo: require("@/assets/web_logo.png"),
         loading: false,
         materialLoading: false,
         receiptOrder: undefined,
@@ -186,4 +188,11 @@ export default {
   }
 </script>
 <style>
+   .logo-img {
+      width: 200px;
+      height: 100px;
+      object-fit: cover;
+      object-position: center;
+      display: inline-block;
+    }
 </style>

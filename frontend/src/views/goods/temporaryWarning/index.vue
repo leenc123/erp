@@ -42,6 +42,7 @@ export default {
   },
   data() {
     return {
+      warehouseItems: [],
       columns: [
         {
           title: "序号",
@@ -111,6 +112,9 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+      warehousesOption({ page_size: 999999, is_active: true }).then((data) => {
+        this.warehouseItems = data.results;
+      });
     },
     search() {
       this.searchForm.page = 1;

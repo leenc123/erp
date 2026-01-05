@@ -50,7 +50,6 @@
         return this.$store.state.user.username
       },
       avatar() {
-        console.log('11111111',this.$store.state.user.avatar.file)
         return this.$store.state.user.avatar.file
       },
       isManager() {

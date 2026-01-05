@@ -1,5 +1,5 @@
 # 安装前端依赖
-FROM registry.cn-hangzhou.aliyuncs.com/tfh/node:12.13.1
+FROM node:22.19.0-alpine
 # 设置工作目录
 WORKDIR /app
 # 安装前端环境

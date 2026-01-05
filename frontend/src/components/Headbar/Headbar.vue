@@ -22,17 +22,17 @@
       <a-dropdown :trigger="['click']">
 
         <span class="trigger" style="color: #50799e;">
-          <a-avatar size="large" :src="avatar" style="margin-top: -6px; margin-left: 8px;padding: 2px;"
+          <a-avatar size="large" :src="avatar" style="margin-top: -6px; margin-left: 8px;object-fit: cover;"
             :style="{ border: '2px solid #f0f0f0' }">
           </a-avatar>
           {{ username }}
 
           <a-icon type="down" style="margin-left: 10px;" />
         </span>
-        <a-menu slot="overlay">
+        <a-menu slot="overlay" >
           <a-menu-item>
-            <a-upload v-model="fileList" name="file" action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              :headers="headers" @change="handleChange">
+            <a-upload v-model="fileList" name="file" :action="uploadUrl"
+              :headers="headers" @change="handleUploadChange" :show-upload-list="false">
               <span>修改头像</span>
             </a-upload>
           </a-menu-item>
@@ -55,19 +55,19 @@
 <script>
 // import { warehouseOption } from '@/api/option';
 import Cookies from 'js-cookie';
-
+import { updateUserAvatar } from '@/api/user';
 export default {
   name: 'Headbar',
-  props: ['collapsed', 'username'],
+  props: ['collapsed', 'username','avatar'],
   inject: ['reloadPage'],
   data() {
     return {
       warehouseItems: [],
       currentWarehouse: '所有仓库',
-      avatar: require('@/assets/avatar.jpg'),
       fileList: [],
+      uploadUrl: '/api/common_images/',
       headers: {
-        authorization: 'authorization-text',
+        Authorization: `Bearer ${Cookies.get('access')}`,
       }
     };
   },
@@ -87,6 +87,41 @@ export default {
       this.currentWarehouse = item.name;
       this.$store.commit('setWarehouse', item.id);
       this.reloadPage();
+    },
+    async handleUploadChange(info) {
+      if (info.file.status === 'uploading') {
+        return
+      }
+      
+      if (info.file.status === 'done') {
+        // 1. 获取上传后的图片URL
+        const fileId = info.file.response?.id
+        if (fileId) {
+          // 2. 调用修改用户头像的接口
+          try {
+            const result = await updateUserAvatar({
+              avatar_id: fileId  // 或者直接传文件ID
+            })
+            if (result) {
+              this.$message.success('头像修改成功！')
+              // 3. 更新本地用户信息
+              this.$store.commit('setUser', result);
+            }
+          } catch (error) {
+            this.$message.error('头像更新失败：' + error.message)
+          }
+        } else {
+          this.$message.error('上传失败，未获取到图片地址')
+        }
+        
+        // 清空文件列表
+        this.fileList = []
+      }
+      
+      if (info.file.status === 'error') {
+        message.error('图片上传失败！')
+        this.fileList = []
+      }
     },
   },
   mounted() {

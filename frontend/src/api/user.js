@@ -21,4 +21,6 @@ export function setPassword(data) {
   return request({ url: `/user/set_password/`, method: 'post', data })
 }
 
-
+export function updateUserAvatar(data) {
+  return request({ url: `/user/update_avatar/`, method: 'post', data })
+}

@@ -94,10 +94,19 @@ class UserSerializer(BaseSerializer):
 
         kwargs['permissions'] = list(permissions)
         return super().save(**kwargs)
+class CommonImageSerializer(BaseSerializer):
+    class Meta:
+        model = CommonImage
+        read_only_fields = ['id', 'name']
+        fields = ['file', *read_only_fields]
+
+    def create(self, validated_data):
+        validated_data['name'] = validated_data['file'].name
+        return super().create(validated_data)
 
 
 __all__ = [
     'PermissionGroupSerializer',
     'SystemConfigSerializer',
-    'RoleSerializer', 'UserSerializer',
+    'RoleSerializer', 'UserSerializer','CommonImageSerializer',
 ]

@@ -7,7 +7,7 @@
 
       <a-layout v-if="isLogin">
         <a-layout-header class="headbar">
-          <headbar :collapsed="collapsed" :username="username" @toggleCollapsed="toggleCollapsed" />
+          <headbar :collapsed="collapsed" :username="username" :avatar="avatar" @toggleCollapsed="toggleCollapsed" />
         </a-layout-header>
 
         <a-layout-content>
@@ -48,6 +48,10 @@
     computed: {
       username() {
         return this.$store.state.user.username
+      },
+      avatar() {
+        console.log('11111111',this.$store.state.user.avatar.file)
+        return this.$store.state.user.avatar.file
       },
       isManager() {
         return this.$store.state.user.isManager

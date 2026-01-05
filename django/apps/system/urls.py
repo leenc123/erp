@@ -8,4 +8,5 @@ router.register('system', SystemConfigViewSet, 'system_config')
 router.register('roles', RoleViewSet, 'role')
 router.register('users', UserViewSet, 'user')
 router.register('user', UserActionViewSet, 'user_action')
+router.register('common_images', CommonImageViewSet, 'common_image')
 urlpatterns = router.urls

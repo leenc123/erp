@@ -36,3 +36,7 @@ export function salesTopTenList(params) {
 export function salesTrendList(params) {
   return request({ url: `/sales_trends/`, method: 'get', params })
 }
+// 图片上传
+export function uploadImage(params) {
+  return request({ url: `/common_images/`, method: 'post', params })
+}

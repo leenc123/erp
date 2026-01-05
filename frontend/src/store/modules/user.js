@@ -2,6 +2,7 @@ export default {
   state: () => ({
     username: '',
     isManager: false,
+    avatar: {},
     permissions: [],
     config: {},
     barConfig: {},
@@ -12,6 +13,7 @@ export default {
       state.username = item.username;
       state.isManager = item.is_manager;
       state.permissions = item.permissions;
+      state.avatar = item.avatar
       state.barConfig = {
         batchLabelLength: item.batch_label_length,
         batchLabelWidth: item.batch_label_width,

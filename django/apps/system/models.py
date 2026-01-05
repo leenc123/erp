@@ -59,11 +59,16 @@ class User(Model):
     is_active = BooleanField(default=True, verbose_name='激活状态')
     create_time = DateTimeField(auto_now_add=True, verbose_name='创建时间')
     team = ForeignKey('system.Team', on_delete=CASCADE, related_name='users')
-
+    avatar = ForeignKey('system.CommonImage', on_delete=SET_NULL, null=True, blank=True,
+                            related_name='users', verbose_name='头像')
     class Meta:
         unique_together = [('username', 'team'), ('name', 'team')]
 
-
+class CommonImage(Model):
+    file = ImageField(verbose_name='文件')
+    name = CharField(max_length=256, verbose_name='文件名称')
+    team = ForeignKey('system.Team', on_delete=CASCADE, related_name='common_images', null=True)
+    
 __all__ = [
-    'Team', 'PermissionGroup', 'Permission', 'Role', 'User',
+    'Team', 'PermissionGroup', 'Permission', 'Role', 'User','CommonImage',
 ]

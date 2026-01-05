@@ -168,8 +168,8 @@ class UserActionViewSet(FunctionViewSet):
     @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
     def info(self, request, *args, **kwargs):
         """用户信息"""
-
-        serializer = UserInfoResponse(instance=self.user)
+        serializer = UserInfoResponse(instance=self.user, context={'request': request})
+        print("=== 用户信息 ===",serializer.data)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(request=SetPasswordRequest, responses={204: None})
@@ -188,10 +188,49 @@ class UserActionViewSet(FunctionViewSet):
         self.user.save(update_fields=['password'])
 
         return Response(status=status.HTTP_200_OK)
-
-
+    
+    @extend_schema(request=AvatarUpdateRequest, responses={200: UserInfoResponse})
+    @action(detail=False, methods=['post'], permission_classes=[IsAuthenticated])
+    def update_avatar(self, request, *args, **kwargs):
+        """更新用户头像"""
+        
+        serializer = AvatarUpdateRequest(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        avatar = CommonImage.objects.get(id=serializer.validated_data['avatar_id'])
+        # 获取当前用户
+        user = request.user
+        print("=== 更新头像用户 ===",avatar)
+        # 删除旧头像（如果有）
+        if user.avatar:
+            # 保存旧头像的引用，以便后续删除
+            old_avatar = user.avatar
+            # 先解除与用户的关联
+            user.avatar = None
+            user.save()
+            # 然后删除旧头像
+            old_avatar.delete()
+        
+        # 保存新头像
+        user.avatar = avatar
+        user.save()
+        
+        # 返回更新后的用户信息
+        response_serializer = UserInfoResponse(instance=user, context={'request': request})
+        return Response(data=response_serializer.data, status=status.HTTP_200_OK)
+class CommonImageViewSet(ModelViewSet):
+    """通用图片"""
+    try:
+        serializer_class = CommonImageSerializer
+        permission_classes = [IsAuthenticated, IsManagerPermission]
+        search_fields = ['name']
+        queryset = CommonImage.objects.all()
+    except Exception as e:
+        print("=== 异常信息 ===")
+        print("异常类型:", type(e).__name__)
+        print("异常信息:", str(e))
 __all__ = [
     'PermissionGroupViewSet',
     'SystemConfigViewSet',
-    'RoleViewSet', 'UserViewSet', 'UserActionViewSet',
+    'RoleViewSet', 'UserViewSet', 'UserActionViewSet','CommonImageViewSet'
 ]

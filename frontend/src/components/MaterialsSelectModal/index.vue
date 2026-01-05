@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-modal v-model="visible" title="产品选择" width="960px" :footer="null" @cancel="onCloseModel">
-      <a-row gutter="16">
+      <a-row :gutter="16">
         <a-col :span="24" style="width: 256px;">
           <a-input v-model="searchForm.search" placeholder="产品名称, 编码, 条码" allowClear @pressEnter="search" />
         </a-col>

@@ -5,7 +5,7 @@
       <!-- <div style="display: flex;flex-direction: row;background-color: #FFFFFF;width: 100%">
         <div id="caigou_echarts" style="width: 100%;height: 250px;"></div>
       </div> -->
-      <a-row gutter="24">
+      <a-row :gutter="24">
         <a-col :span="10">
           <a-form-model-item :wrapper-col="{ span: 24 }">
             <a-radio-group v-model="radioValue" button-style="solid" @change="changeRadio" style="width: 100%;">

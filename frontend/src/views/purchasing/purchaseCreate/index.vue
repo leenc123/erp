@@ -52,7 +52,7 @@
         <a-divider orientation="left">产品信息</a-divider>
 
         <div>
-          <a-row gutter="16">
+          <a-row :gutter="16">
             <a-space>
               <!-- <a-input placeholder="请扫描产品条码"></a-input> -->
               <a-button type="primary" @click="openMaterialModal">添加产品</a-button>
@@ -95,7 +95,7 @@
         <a-divider orientation="left">账单信息</a-divider>
 
         <div>
-          <a-row gutter="16">
+          <a-row :gutter="16">
             <a-col :span="4">
               <a-form-model-item
                 prop="other_amount"
@@ -133,10 +133,10 @@
             </a-col>
           </a-row>
 
-          <a-row gutter="16">
+          <a-row :gutter="16">
 
           </a-row>
-          <a-row gutter="16">
+          <a-row :gutter="16">
 
           </a-row>
 

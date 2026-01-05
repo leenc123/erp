@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-row gutter="12">
+    <a-row :gutter="12">
       <a-col :span="24">
         <sales-trend />
         <sales-goods style="margin-top: 12px;"/>

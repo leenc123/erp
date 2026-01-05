@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-card title="角色管理">
-      <a-row gutter="16">
+      <a-row :gutter="16">
         <a-col :span="24" :md="8" :xl="6" style="margin-bottom: 12px;">
           <a-input-search v-model="searchForm.search" placeholder="名称, 备注" allowClear @search="search" />
         </a-col>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-card title="产品分类">
-      <a-row gutter="16">
+      <a-row :gutter="16">
         <a-col :span="24" style="max-width: 200px; margin-bottom: 12px;">
           <a-input v-model="searchForm.search" placeholder="名称, 备注" allowClear @pressEnter="search" />
         </a-col>

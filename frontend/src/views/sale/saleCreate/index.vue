@@ -53,7 +53,7 @@
         <a-divider orientation="left">产品信息</a-divider>
 
         <div>
-          <a-row gutter="16">
+          <a-row :gutter="16">
             <a-space>
               <a-button type="primary" @click="openMaterialModal">添加产品</a-button>
             </a-space>
@@ -84,7 +84,7 @@
         </div>
         <a-divider orientation="left">账单信息</a-divider>
         <div>
-          <a-row gutter="16">
+          <a-row :gutter="16">
             <a-col :span="4">
               <a-form-model-item prop="discount" label="整单折扣" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
                 <a-input-number v-model="form.discount" style="width: 100%;" />

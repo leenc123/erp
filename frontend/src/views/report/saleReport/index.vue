@@ -2,7 +2,7 @@
   <div>
     <a-card  :active-tab-key="currentTab" @tabChange="changeTab">
 
-      <a-row gutter="24">
+      <a-row :gutter="24">
         <a-col :span="10">
           <a-form-model-item :wrapper-col="{ span: 24 }">
             <a-radio-group v-model="radioValue" button-style="solid" @change="changeRadio" style="width: 100%;">

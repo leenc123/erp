@@ -52,7 +52,7 @@
         </a-form-model>
 
         <div>
-          <a-row gutter="16">
+          <a-row :gutter="16">
             <a-space>
               <a-button type="primary" @click="openMaterialModal">添加产品</a-button>
             </a-space>

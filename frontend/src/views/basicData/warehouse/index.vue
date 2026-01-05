@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-card title="仓库">
-      <a-row gutter="16">
+      <a-row :gutter="16">
         <a-col :span="24" style="max-width: 200px; margin-bottom: 12px;">
           <a-select v-model="searchForm.is_active" placeholder="状态" allowClear style="width: 100%;" @change="search">
             <a-select-option :value="true">激活</a-select-option>

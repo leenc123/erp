@@ -4,7 +4,7 @@
       <div style="display: flex;flex-direction: row;">
         <div id="kucun_echarts" style="width: 100%;height: 250px;"></div>
       </div>
-      <a-row gutter="16">
+      <a-row :gutter="16">
         <a-col :span="24" :md="6" :xl="4" style="max-width: 256px; margin-bottom: 12px;">
           <a-input-search v-model="searchForm.search" placeholder="产品编号/名称" allowClear @search="search" />
         </a-col>

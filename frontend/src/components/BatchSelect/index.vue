@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-row gutter="12">
+    <a-row :gutter="12">
       <a-col :span="24">
         <a-select v-model="batch" placeholder="批次" :loading="batchLoading" :disabled="batchLoading"
           style="width: 100%;" @change="onChangeBatch">

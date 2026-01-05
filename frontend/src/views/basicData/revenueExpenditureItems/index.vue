@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-card title="收支项目">
-      <a-row gutter="16">
+      <a-row :gutter="16">
         <a-col :span="24" style="max-width: 200px; margin-bottom: 12px;">
           <a-select v-model="searchForm.type" placeholder="类型" allowClear style="width: 100%;" @change="search">
             <a-select-option value="income">收入</a-select-option>

@@ -47,7 +47,7 @@
           </a-row>
         </a-form-model>
         <div>
-          <a-row gutter="16">
+          <a-row :gutter="16">
             <a-space>
               <a-button type="primary" @click="handelAddAcount">添加结算账户</a-button>
             </a-space>

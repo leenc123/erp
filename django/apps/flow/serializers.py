@@ -5,6 +5,7 @@ from apps.flow.models import *
 
 
 class InventoryFlowSerializer(BaseSerializer):
+    id = IntegerField(read_only=True, label='ID')
     warehouse_number = CharField(source='warehouse.number', read_only=True, label='仓库编号')
     warehouse_name = CharField(source='warehouse.name', read_only=True, label='仓库名称')
     goods_number = CharField(source='goods.number', read_only=True, label='产品编号')
@@ -43,7 +44,7 @@ class InventoryFlowSerializer(BaseSerializer):
 
     class Meta:
         model = InventoryFlow
-        fields = ['warehouse', 'warehouse_number', 'warehouse_name', 'goods', 'goods_number',
+        fields = ['id','warehouse', 'warehouse_number', 'warehouse_name', 'goods', 'goods_number',
                   'goods_name', 'goods_barcode', 'unit_name', 'type_display', 'quantity_before',
                   'quantity_change', 'quantity_after', 'purchase_order', 'purchase_order_number',
                   'void_purchase_order', 'void_purchase_order_number', 'purchase_return_order',

@@ -28,7 +28,6 @@ services:
     volumes:
       - ./django:/app:rw
       - ./uwsgi:/tmp
-      - ./data/initialized:/app/initialized:rw
     depends_on:
       - db
     networks:

@@ -8,5 +8,5 @@ WORKDIR /app
 CMD npm config set registry https://registry.npmmirror.com/ && \
         yarn config set ignore-engines true && \
         npm install -g yarn && \
-        yarn install && \
+        if ! command -v yarn &> /dev/null; then npm install -g yarn; fi && \
         yarn build

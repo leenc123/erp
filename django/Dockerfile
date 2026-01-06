@@ -1,4 +1,4 @@
-FROM registry.cn-hangzhou.aliyuncs.com/tfh/python:3.9
+FROM python:3.9-slim
 
 # 设置工作目录
 WORKDIR /app

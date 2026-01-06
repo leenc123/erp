@@ -24,10 +24,11 @@
         <span class="trigger" style="color: #50799e;">
           <a-avatar size="large" :src="avatar" style="margin-top: -6px; margin-left: 8px;object-fit: cover;"
             :style="{ border: '2px solid #f0f0f0' }">
+            {{ username.charAt(0).toUpperCase() }}
           </a-avatar>
           {{ username }}
 
-          <a-icon type="down" style="margin-left: 10px;" />
+          <a-icon type="down" style="margin-left: 10px;" :alt="username" />
         </span>
         <a-menu slot="overlay" >
           <a-menu-item>

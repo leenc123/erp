@@ -3,6 +3,19 @@ FROM python:3.9-slim
 # 设置工作目录
 WORKDIR /app
 
+# 解决arm架构下mysqlclient安装问题
+# 设置时区 
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+# 1. 先更新 apt 并安装系统依赖（包括 MySQL 开发库）
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    pkg-config \
+    default-libmysqlclient-dev \
+    netcat-openbsd \
+    && rm -rf /var/lib/apt/lists/*
+
 # 复制项目文件
 COPY . /app
 

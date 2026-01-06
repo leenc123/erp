@@ -50,7 +50,7 @@
         return this.$store.state.user.username
       },
       avatar() {
-        return this.$store.state.user.avatar.file
+        return this.$store.state.user.avatar?.file
       },
       isManager() {
         return this.$store.state.user.isManager

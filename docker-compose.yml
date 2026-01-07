@@ -40,28 +40,28 @@ services:
       - db_network
     # 创建独立的启动脚本
     command: >
-      sh -c '
+      sh -c "
       apk add --no-cache mysql-client bash curl dcron
-      echo "等待数据库启动..."
+      echo '等待数据库启动...'
       sleep 30
-      echo "测试数据库连接..."
-      until mysql -hdb -uroot -p$${MYSQL_ROOT_PASSWORD} -e "SELECT 1" 2>/dev/null
+      echo '测试数据库连接...'
+      until mysql -hdb -uroot -p'${MYSQL_ROOT_PASSWORD}' -e 'SELECT 1' 2>/dev/null
       do
-        echo "等待数据库..."
+        echo '等待数据库...'
         sleep 5
       done
-      echo "创建定时备份任务..."
+      echo '创建定时备份任务...'
       mkdir -p /etc/periodic/daily
-      cat > /etc/periodic/daily/backup << "EOF"
+      cat > /etc/periodic/daily/backup << 'EOF'
       #!/bin/sh
       /scripts/backup.sh daily
       EOF
       chmod +x /etc/periodic/daily/backup
-      echo "执行首次备份..."
+      echo '执行首次备份...'
       /scripts/backup.sh daily
-      echo "启动定时任务服务..."
+      echo '启动定时任务服务...'
       crond -f -l 8
-      '
+      "
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
   backend:

@@ -22,6 +22,29 @@ services:
     networks:
       - db_network
       - nginx_network
+  # 备份服务
+  backup:
+    image: mysql:8.0
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backups:/backups:rw
+      - ./scripts/backup.sh:/backup.sh:ro
+    networks:
+      - db_network
+    # 每天凌晨2点执行备份
+    command: >
+      sh -c "
+      echo '等待数据库就绪...'
+      sleep 10
+      echo '设置定时备份任务...'
+      echo '0 2 * * * /backup.sh' > /etc/crontabs/root
+      crond -f
+      "
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
   backend:
     build: ./django
     restart: always

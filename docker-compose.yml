@@ -41,11 +41,39 @@ services:
     # 每天凌晨2点执行备份
     command: >
       sh -c "
-      echo '等待数据库就绪...'
-      sleep 10
-      echo '设置定时备份任务...'
-      echo '0 2 * * * /backup.sh' > /etc/crontabs/root
-      crond -f
+      # 安装必要的软件
+      apk add --no-cache mysql-client bash curl
+      
+      # 等待数据库启动
+      echo '等待数据库启动...'
+      sleep 30
+      
+      # 测试数据库连接
+      echo '测试数据库连接...'
+      until mysql -hdb -uroot -p$${MYSQL_ROOT_PASSWORD} -e 'SELECT 1' 2>/dev/null; do
+        echo '等待数据库...'
+        sleep 5
+      done
+      
+      # 创建cron任务文件
+      echo '创建定时备份任务...'
+      mkdir -p /etc/periodic/daily
+      
+      # 创建每日备份脚本
+      cat > /etc/periodic/daily/backup << 'EOF'
+      #!/bin/sh
+      /scripts/backup.sh daily
+      EOF
+      
+      chmod +x /etc/periodic/daily/backup
+      
+      # 立即执行一次备份
+      echo '执行首次备份...'
+      /scripts/backup.sh daily
+      
+      # 启动crond
+      echo '启动定时任务服务...'
+      crond -f -l 8
       "
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}

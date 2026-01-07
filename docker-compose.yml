@@ -28,21 +28,21 @@ services:
       - nginx_network
   # 备份服务
   backup:
-    image: mysql:8.0
+    image: alpine:latest  # 使用更轻量的 alpine 镜像
     restart: always
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - ./backups:/backups:rw
-      - ./scripts/backup.sh:/backup.sh:ro
+      - ./scripts/backup.sh:/scripts/backup.sh:ro
     networks:
       - db_network
-    # 每天凌晨2点执行备份
+    # 创建独立的启动脚本
     command: >
       sh -c "
       # 安装必要的软件
-      apk add --no-cache mysql-client bash curl
+      apk add --no-cache mysql-client bash curl dcron
       
       # 等待数据库启动
       echo '等待数据库启动...'
@@ -50,7 +50,7 @@ services:
       
       # 测试数据库连接
       echo '测试数据库连接...'
-      until mysql -hdb -uroot -p$$MYSQL_ROOT_PASSWORD -e 'SELECT 1' 2>/dev/null; do
+      until mysql -hdb -uroot -p${MYSQL_ROOT_PASSWORD} -e 'SELECT 1' 2>/dev/null; do
         echo '等待数据库...'
         sleep 5
       done

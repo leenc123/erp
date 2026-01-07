@@ -50,7 +50,7 @@ services:
       
       # 测试数据库连接
       echo '测试数据库连接...'
-      until mysql -hdb -uroot -p$${MYSQL_ROOT_PASSWORD} -e 'SELECT 1' 2>/dev/null; do
+      until mysql -hdb -uroot -p$$MYSQL_ROOT_PASSWORD -e 'SELECT 1' 2>/dev/null; do
         echo '等待数据库...'
         sleep 5
       done

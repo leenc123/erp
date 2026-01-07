@@ -25,7 +25,9 @@ done
 if [ $counter -eq $max_attempts ]; then
     echo "警告：无法连接到数据库，但继续执行..."
 fi
-
+# 确保备份脚本有执行权限
+echo "设置备份脚本权限..."
+chmod +x /scripts/backup.sh
 # 创建定时任务
 echo "创建定时备份任务..."
 mkdir -p /etc/periodic/daily

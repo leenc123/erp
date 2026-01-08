@@ -30,7 +30,7 @@ echo "设置备份脚本权限..."
 chmod +x /scripts/backup.sh
 # 创建定时任务
 echo "创建定时备份任务..."
-# 设置定时任务（每天凌晨2点执行）
+# 设置定时任务（每个小时执行一次）
 echo "0 * * * * /scripts/backup.sh" > /etc/crontabs/root
 # 立即执行一次备份
 echo "执行首次备份..."

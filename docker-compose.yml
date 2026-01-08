@@ -41,8 +41,8 @@ services:
       - db_network
     # 创建独立的启动脚本
     command: ["/bin/sh", "/backup-entrypoint.sh"]
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    env_file:
+    - ./mysql/.env  # 使用相同的环境变量文件
   backend:
     build: ./django
     restart: always

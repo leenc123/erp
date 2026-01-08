@@ -13,7 +13,7 @@ counter=0
 max_attempts=12
 
 while [ $counter -lt $max_attempts ]; do
-    if mysql -h erp_db -u root -p"$MYSQL_ROOT_PASSWORD" -e "SELECT 1" 2>/dev/null; then
+    if mysql -h erp_db -u root -p"ERPSYSTE" -e "SELECT 1" 2>/dev/null; then
         echo "数据库连接成功！"
         break
     fi

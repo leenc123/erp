@@ -14,6 +14,7 @@ mysqldump \
   -h$MYSQL_HOST \
   -u$MYSQL_USER \
   -p$MYSQL_PASSWORD \
+  --ssl=0 \
   --all-databases \
   --single-transaction \
   --routines \

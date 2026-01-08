@@ -35,8 +35,8 @@ services:
         condition: service_healthy
     volumes:
       - ./backups:/backups:rw
-      - ./scripts/backup.sh:/scripts/backup.sh:ro
-      - ./scripts/backup-entrypoint.sh:/backup-entrypoint.sh:ro
+      - ./scripts/backup.sh:/scripts/backup.sh:rw
+      - ./scripts/backup-entrypoint.sh:/backup-entrypoint.sh:rw
     networks:
       - db_network
     # 创建独立的启动脚本

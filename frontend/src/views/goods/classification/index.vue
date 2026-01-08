@@ -162,7 +162,7 @@ export default {
               this.list();
             })
             .catch(err => {
-              alert("导入错误:" + "\n" + err.response.data.join("\n"));
+              this.$message.error(err.response.data.detail);
             })
             .finally(() => {
               this.importLoading = false;

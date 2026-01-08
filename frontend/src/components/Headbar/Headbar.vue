@@ -4,7 +4,7 @@
       <a-icon class="trigger" :type="collapsed ? 'menu-unfold' : 'menu-fold'" @click="$emit('toggleCollapsed')" />
     </div>
 
-    <a style="color: #50799e;font-weight: bold;font-size: 20px;">{{ ProjectName }}</a>
+    <a style="color: #0072f6;font-weight: bold;font-size: 20px;">{{ ProjectName }}</a>
 
     <div style="float: right;">
       <!-- <a-dropdown :trigger="['click']">
@@ -21,8 +21,9 @@
 
       <a-dropdown :trigger="['click']">
 
-        <span class="trigger" style="color: #50799e;">
-          <a-avatar size="large" :src="avatar" style="margin-top: -6px; margin-left: 8px;object-fit: cover;"
+        <span class="trigger" style="color: #0072f6;">
+          <a-avatar size="large" :src="avatarUrl" style="margin-top: -6px; margin-left: 8px;object-fit: cover;"
+            :loadError="showDefultAvatar"
             :style="{ border: '2px solid #f0f0f0' }">
             {{ username.charAt(0).toUpperCase() }}
           </a-avatar>
@@ -64,6 +65,8 @@ export default {
   data() {
     return {
       warehouseItems: [],
+      defult_avatar: require("@/assets/avatar.png"),
+      avatarUrl: '',
       currentWarehouse: '所有仓库',
       fileList: [],
       uploadUrl: '/api/common_images/',
@@ -74,6 +77,7 @@ export default {
   },
   methods: {
     initData() {
+      this.avatarUrl = this.avatar;
       // warehouseOption({ page_size: 999999 }).then(data => {
       //   console.log(data.results)
       //   this.warehouseItems = [{ id: undefined, name: '所有仓库' }, ...data.results];
@@ -83,6 +87,10 @@ export default {
       Cookies.remove('access');
       Cookies.remove('refresh');
       this.$router.push('/user/login');
+    },
+    showDefultAvatar(e) {
+      console.log("加载默认头像");
+      this.avatarUrl = this.defult_avatar;
     },
     onChangeWarehouse(item) {
       this.currentWarehouse = item.name;

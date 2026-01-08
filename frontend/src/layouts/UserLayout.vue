@@ -3,10 +3,10 @@
     <a-card class="card" >
       <div style="">
         <div style="text-align: center; padding-top: 16px">
-          <img :src="logo" width="100" style="cursor: pointer; margin-top: 16px"  />
+          <img :src="logo" width="180" style="cursor: pointer; margin-top: 16px"  />
         </div>
 
-        <div style="text-align: center; font-size: 20px; color: #50799e; margin-top: 8px; margin-bottom: 24px;font-weight: bold;">
+        <div style="text-align: center; font-size: 20px; color: #0072f6; margin-top: 8px; margin-bottom: 24px;font-weight: bold;">
           <span>{{ProjectName}}</span>
         </div>
       </div>
@@ -34,7 +34,7 @@ export default {
   border-radius: 8px;
   padding-bottom: 64px;
   margin: auto;
-  color: #50799e;
+  color: #0072f6;
 }
 
 .background {
@@ -47,7 +47,7 @@ export default {
 .title {
   text-align: center;
   font-size: 32px;
-  color: #50799e;
+  color: #0072f6;
   margin-top: 8px;
   font-weight: bold;
 }

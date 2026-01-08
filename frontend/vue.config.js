@@ -22,7 +22,7 @@ module.exports = {
         lessOptions: {  // ✅ 添加 lessOptions 包装
           javascriptEnabled: true,
           modifyVars: {
-            'primary-color': '#50799e',
+            'primary-color': '#0072f6',
             'text-color': '#6e6e6e',
             'border-color': '#eee',
             'nice-blue': '#f0f'
@@ -36,7 +36,7 @@ module.exports = {
     devServer: {
       proxy: {
         "/api": {
-        target: "http://192.168.1.166:8000",
+        target: "http://192.168.2.21:8000",
         changeOrigin: true,
       },
       }

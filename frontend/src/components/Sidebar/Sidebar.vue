@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100vh;">
-    <div class="logo" @click="$router.push('/')" style="width: 256px;display: flex;flex-direction: row;align-items: center;">
+    <div class="logo" @click="$router.push('/')" style="display: flex;flex-direction: row;align-items: center;" :style="{ width: collapsed ? '80px' : '256px' }">
       <img :src="logoSmall" height="52" style=" margin-left: -6px;" />
       <img :src="logoTitle" v-if="!collapsed" height="52" style=" margin-left: 8px;" />
       <!-- <span v-if="!collapsed" style="color: #1890ff; margin-left: 6px; font-size: 14px">{{ ProjectName }}</span> -->

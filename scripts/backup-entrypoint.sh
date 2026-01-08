@@ -36,7 +36,8 @@ cat > /etc/periodic/daily/backup << 'EOF'
 /scripts/backup.sh daily
 EOF
 chmod +x /etc/periodic/daily/backup
-
+# 设置定时任务（每天凌晨2点执行）
+echo "0 * * * * /scripts/backup.sh" > /etc/crontabs/root
 # 立即执行一次备份
 echo "执行首次备份..."
 /scripts/backup.sh daily

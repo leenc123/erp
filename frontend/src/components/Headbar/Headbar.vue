@@ -75,6 +75,11 @@ export default {
       }
     };
   },
+  watch:{
+    avatar(newVal) {
+      this.avatarUrl = newVal;
+    }
+  },
   methods: {
     initData() {
       this.avatarUrl = this.avatar;

@@ -38,4 +38,4 @@ echo "执行首次备份..."
 
 # 启动crond
 echo "启动定时任务服务..."
-crond -l 2 -f &
+crond -l 2 -f

@@ -6,72 +6,72 @@ export default {
   children: [
     {
       path: 'payment',
-      meta: { title: '付款', permission: 'payment' },
+      meta: { title: '付款', permission: 'payment_order' },
       component: () => import('@/views/finance/payment/index'),
     },
     {
       path: 'payment_create',
-      meta: { title: '付款新增', permission: 'payment_create' },
+      meta: { title: '付款新增', permission: 'payment_order' },
       component: () => import('@/views/finance/paymentCreate/index'),
     },
     {
       path: 'payment_detail',
-      meta: { title: '付款详情', permission: 'payment_detail' },
+      meta: { title: '付款详情', permission: 'payment_order' },
       component: () => import('@/views/finance/paymentDetail/index'),
     },
     {
       path: 'collection',
-      meta: { title: '收款', permission: 'collection' },
+      meta: { title: '收款', permission: 'collection_order' },
       component: () => import('@/views/finance/collection/index'),
     },
     {
       path: 'collection_create',
-      meta: { title: '收款新增', permission: 'collection_create' },
+      meta: { title: '收款新增', permission: 'collection_order' },
       component: () => import('@/views/finance/collectionCreate/index'),
     },
     {
       path: 'collection_detail',
-      meta: { title: '收款详情', permission: 'collection_detail' },
+      meta: { title: '收款详情', permission: 'collection_order' },
       component: () => import('@/views/finance/collectionDetail/index'),
     },
     {
       path: 'arrears_payable',
-      meta: { title: '应付欠款', permission: 'arrears_payable' },
+      meta: { title: '应付欠款', permission: 'supplier_arrears' },
       component: () => import('@/views/finance/arrearsPayable/index'),
     },
     {
       path: 'arrears_payable_detail',
-      meta: { title: '应付欠款详情', permission: 'arrears_payable_detail' },
+      meta: { title: '应付欠款详情', permission: 'supplier_arrears' },
       component: () => import('@/views/finance/arrearsPayableDetail/index'),
     },
     {
       path: 'arrears_receivable',
-      meta: { title: '应收欠款', permission: 'arrears_receivable' },
+      meta: { title: '应收欠款', permission: 'client_arrears' },
       component: () => import('@/views/finance/arrearsReceivable/index'),
     },
     {
       path: 'arrears_receivable_detail',
-      meta: { title: '应收欠款详情', permission: 'arrears_receivable_detail' },
+      meta: { title: '应收欠款详情', permission: 'client_arrears' },
       component: () => import('@/views/finance/arrearsReceivableDetail/index'),
     },
     {
       path: 'account_transfer',
-      meta: { title: '账户转账', permission: 'account_transfer' },
+      meta: { title: '账户转账', permission: 'account_transfer_record' },
       component: () => import('@/views/finance/accountTransfer/index'),
     },
     {
       path: 'income_and_pay',
-      meta: { title: '日常收支', permission: 'income_and_pay' },
+      meta: { title: '日常收支', permission: 'charge_order' },
       component: () => import('@/views/finance/incomeAndPay/index'),
     },
     {
       path: 'flow',
-      meta: { title: '资金流水', permission: 'flow' },
+      meta: { title: '资金流水', permission: 'finance_flow' },
       component: () => import('@/views/finance/flow/index'),
     },
     {
       path: 'flow_detail',
-      meta: { title: '资金流水详情', permission: 'flow_detail' },
+      meta: { title: '资金流水详情', permission: 'finance_flow' },
       component: () => import('@/views/finance/flowDetail/index'),
     },
     // {

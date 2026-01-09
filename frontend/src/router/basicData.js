@@ -21,12 +21,12 @@ export default {
     },
     {
       path: 'settlement_account',
-      meta: { title: '结算账户', permission: 'settlement_account' },
+      meta: { title: '结算账户', permission: 'account' },
       component: () => import('@/views/basicData/settlementAccount/index'),
     },
     {
       path: 'revenue_expenditure_items',
-      meta: { title: ' 收支项目', permission: 'revenue_expenditure_items' },
+      meta: { title: ' 收支项目', permission: 'charge_item' },
       component: () => import('@/views/basicData/revenueExpenditureItems/index'),
     },
   ],

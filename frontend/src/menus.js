@@ -51,6 +51,13 @@ export default [
     ]
   },
   {
+    key: '10', name: '生产管理', icon: 'database', submenus: [
+      { key: '/production/plan', name: '生产计划' },
+      { key: '/production/task', name: '生产任务' },
+      { key: '/production/record', name: '生产记录' },
+    ]
+  },
+  {
     key: '8', name: '财务管理', icon: 'dollar', submenus: [
       { key: '/finance/arrears_payable', name: '应付欠款' },
       { key: '/finance/payment', name: '付款' },

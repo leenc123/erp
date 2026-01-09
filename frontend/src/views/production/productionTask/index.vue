@@ -24,7 +24,7 @@
         >
           <div slot="action" slot-scope="value, item, index">
             <a-button-group size="small">
-              <a-button @click="detial()">详情</a-button>
+              <a-button @click="detial(item)">详情</a-button>
               <a-button type="primary" @click="openCreateModal(item)">生产</a-button>
             </a-button-group>
           </div>
@@ -118,6 +118,8 @@ export default {
         .then((data) => {
           this.pagination.total = data.count;
           this.items = data.results;
+        })
+        .catch((err) => {
         })
         .finally(() => {
           this.loading = false;

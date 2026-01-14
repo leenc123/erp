@@ -16,8 +16,8 @@
           <div slot="action" slot-scope="value, item">
             <a-button-group size="small">
               <a-button size="small" @click="detial(item)">详情</a-button>
-              <a-popconfirm title="确定作废吗" @confirm="voidItem(item)">
-                <a-button type="danger" icon="delete" size="small">作废</a-button>
+              <a-popconfirm title="确定作废吗?" @confirm="voidItem(item)" :disabled="item.is_void">
+                <a-button type="danger" :disabled="item.is_void">{{ item.is_void ? '已作废' : '作废' }}</a-button>
               </a-popconfirm>
             </a-button-group>
           </div>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { saleOrderList, saleOrdersVoid } from '@/api/sale'
+import { saleOrderList, saleOrdersVoid,saleOrdersEnable } from '@/api/sale'
 
 export default {
   name: 'SaleRecord',
@@ -135,11 +135,23 @@ export default {
     detial(item) {
       this.$router.push({ path: '/sale/sale_record_detail', query: { id: item.id } });
     },
+    edit(item) {
+      this.$router.push({ path: '/sale/sale_record_edit', query: { id: item.id } });
+    },
     voidItem(item) {
-      saleOrdersVoid({ id: item.id }).then(() => {
-        this.$message.success('作废成功');
-        this.list();
-      });
+      if (item.is_void) {
+        //启用
+         saleOrdersEnable({ id: item.id }).then(() => {
+          this.$message.success('启用成功');
+          this.list();
+        });
+      } else {
+        //作废
+        saleOrdersVoid({ id: item.id }).then(() => {
+          this.$message.success('作废成功');
+          this.list();
+        });
+      }
     },
   },
   mounted() {

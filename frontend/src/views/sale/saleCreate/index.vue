@@ -20,7 +20,7 @@
             </a-col>
             <a-col :span="6" style="width: 320px;">
               <a-form-model-item prop="client" label="客户">
-                <a-select v-model="form.client" style="width: 100%">
+                <a-select v-model="form.client" style="width: 100%" show-search :filter-option="filterOption">
                   <a-select-option v-for="item in clientsItems" :key="item.id" :value="item.id">
                     {{ item.name }}
                   </a-select-option>
@@ -427,6 +427,11 @@ export default {
         this.$message.warn("已添加过改结算账户!");
         this.sales_account_items[idx].account = "";
       }
+    },
+    filterOption(input, option) {
+      return (
+        option.componentOptions.children[0].text.toLowerCase().indexOf(input.toLowerCase()) >= 0
+      );
     },
     openMaterialModal() {
       if (!this.form.warehouse) {

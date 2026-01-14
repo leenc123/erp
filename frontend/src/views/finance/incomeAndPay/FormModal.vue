@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-modal v-model="visible" :confirmLoading="loading" :maskClosable="false" @cancel="cancel" @ok="confirm">
-      <div slot="title">{{form.id ? '编辑日常收支' : '新增日常收支' }}</div>
+      <div slot="title">{{ form.id ? '编辑日常收支' : '新增日常收支' }}</div>
       <div>
         <a-form-model ref="form" :model="form" :rules="rules" :label-col="{ span: 6 }" :wrapper-col="{ span: 16 }">
           <a-form-model-item prop="number" label="编号">
@@ -15,7 +15,7 @@
             </a-select>
           </a-form-model-item>
           <a-form-model-item prop="client" label="客户">
-            <a-select v-model="form.client" style="width: 100%">
+            <a-select v-model="form.client" style="width: 100%" show-search :filter-option="filterOption">
               <a-select-option v-for="item in clientsItems" :key="item.id" :value="item.id">
                 {{ item.name }}
               </a-select-option>
@@ -68,62 +68,66 @@
 </template>
 
 <script>
-  import { chargeOrderCreate } from '@/api/finance'
-  
-  export default {
-    name: 'FormModal',
-    props: ['visible', 'form', 'clientsItems', 'suppliersItems', 'chargeItems', 'handlerItems', 'accountsItems'],
-    model: { prop: 'visible', event: 'cancel' },
-    data() {
-      return {
-        typeItems: [
-          { id: 'income', name: '收入' },
-          { id: 'expenditure', name: '支出' }
+import { chargeOrderCreate } from '@/api/finance'
+
+export default {
+  name: 'FormModal',
+  props: ['visible', 'form', 'clientsItems', 'suppliersItems', 'chargeItems', 'handlerItems', 'accountsItems'],
+  model: { prop: 'visible', event: 'cancel' },
+  data() {
+    return {
+      typeItems: [
+        { id: 'income', name: '收入' },
+        { id: 'expenditure', name: '支出' }
+      ],
+      rules: {
+        number: [{ required: true, message: '请输入编号', trigger: 'change' }],
+        type: [{ required: true, message: '请选择收支类型', trigger: 'change' }],
+        account: [{ required: true, message: '请选择结算账户', trigger: 'change' }],
+        total_amount: [
+          { required: true, message: '请输入应收/付金额', trigger: 'change' },
+          { pattern: new RegExp(/^\d{0,14}(?:\.\d{0,2})?$/), message: '应收/付金额格式不正确', trigger: 'change' }
         ],
-        rules: {
-          number: [{ required: true, message: '请输入编号', trigger: 'change' }],
-          type: [{ required: true, message: '请选择收支类型', trigger: 'change' }],
-          account: [{ required: true, message: '请选择结算账户', trigger: 'change' }],
-          total_amount: [
-            { required: true, message: '请输入应收/付金额', trigger: 'change' },
-            { pattern: new RegExp(/^\d{0,14}(?:\.\d{0,2})?$/), message: '应收/付金额格式不正确', trigger: 'change' }
-          ],
-          charge_item: [
-            { required: true, message: '请选择收支项目', trigger: 'change' },
-          ],
-          charge_amount: [
-            { required: true, message: '请输入实收/付金额', trigger: 'change' },
-            { pattern: new RegExp(/^\d{0,14}(?:\.\d{0,2})?$/), message: '实收/付金额格式不正确', trigger: 'change' }
-          ],
-          handler: [{ required: true, message: '请选择经手人', trigger: 'change' }],
-          handle_time: [{ required: true, message: '请选择处理时间', trigger: 'change' }],
-        },
-        loading: false,
-      };
-    },
-    methods: {
-      confirm() {
-        this.$refs.form.validate(valid => {
-          if (valid) {
-            this.loading = true;
-            let func = this.form.id ? chargeOrderCreate : chargeOrderCreate;
-            func(this.form).then(data => {
-              this.$message.success(this.form.id ? '修改成功' : '新增成功');
-              this.$emit(this.form.id ? 'update' : 'create', data);
-              this.cancel();
-            }).finally(() => {
-              this.loading = false;
-            });
-          }
-        });
+        charge_item: [
+          { required: true, message: '请选择收支项目', trigger: 'change' },
+        ],
+        charge_amount: [
+          { required: true, message: '请输入实收/付金额', trigger: 'change' },
+          { pattern: new RegExp(/^\d{0,14}(?:\.\d{0,2})?$/), message: '实收/付金额格式不正确', trigger: 'change' }
+        ],
+        handler: [{ required: true, message: '请选择经手人', trigger: 'change' }],
+        handle_time: [{ required: true, message: '请选择处理时间', trigger: 'change' }],
       },
-      cancel() {
-        this.$emit('cancel', false);
-        this.$refs.form.resetFields();
-      },
+      loading: false,
+    };
+  },
+  methods: {
+    confirm() {
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          this.loading = true;
+          let func = this.form.id ? chargeOrderCreate : chargeOrderCreate;
+          func(this.form).then(data => {
+            this.$message.success(this.form.id ? '修改成功' : '新增成功');
+            this.$emit(this.form.id ? 'update' : 'create', data);
+            this.cancel();
+          }).finally(() => {
+            this.loading = false;
+          });
+        }
+      });
     },
-  }
+    filterOption(input, option) {
+      return (
+        option.componentOptions.children[0].text.toLowerCase().indexOf(input.toLowerCase()) >= 0
+      );
+    },
+    cancel() {
+      this.$emit('cancel', false);
+      this.$refs.form.resetFields();
+    },
+  },
+}
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

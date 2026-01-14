@@ -13,7 +13,7 @@
             </a-col>
             <a-col :span="6" style="width: 320px;">
               <a-form-model-item prop="client" label="客户">
-                <a-select v-model="form.client" style="width: 100%">
+                <a-select v-model="form.client" style="width: 100%" show-search :filter-option="filterOption">
                   <a-select-option v-for="item in clientArrearsItems" :key="item.id" :value="item.id">
                     {{ item.name }}
                   </a-select-option>
@@ -53,7 +53,8 @@
             </a-space>
           </a-row>
           <div style="margin-top: 16px;">
-            <a-table rowKey="id" size="middle" :columns="columnsAccount" :data-source="accountsData" :pagination="false">
+            <a-table rowKey="id" size="middle" :columns="columnsAccount" :data-source="accountsData"
+              :pagination="false">
               <div slot="account" slot-scope="value, item, index">
                 <a-select v-if="!item.isTotal" v-model="item.account" style="width: 100%"
                   @change="(value) => changeAccount(value, item, index)">
@@ -362,10 +363,15 @@ export default {
       this.form = {};
       getCollectionOrderNumber().then(data => {
         this.form = { number: data.number }
-        this.form.number = 'SK'+this.form.number.slice(2)
+        this.form.number = 'SK' + this.form.number.slice(2)
       })
       this.materialItems = [];
       this.handelAddAcount();
+    },
+    filterOption(input, option) {
+      return (
+        option.componentOptions.children[0].text.toLowerCase().indexOf(input.toLowerCase()) >= 0
+      );
     },
   },
   mounted() {

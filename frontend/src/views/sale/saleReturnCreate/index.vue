@@ -29,7 +29,7 @@
             </a-col>
             <a-col :span="6" style="width: 320px;">
               <a-form-model-item prop="client" label="客户">
-                <a-select v-model="form.client" style="width: 100%">
+                <a-select v-model="form.client" style="width: 100%" show-search :filter-option="filterOption">
                   <a-select-option v-for="item in clientsItems" :key="item.id" :value="item.id">
                     {{ item.name }}
                   </a-select-option>
@@ -394,7 +394,7 @@ export default {
       this.form.handler = selected.handler;
       this.materialItems = [];
       selected.sales_goods_items.map(item => {
-        this.onSelectMaterial({ ...item, ...{ goods_spec: item.goods_spec || '', retail_price: item.sales_price.toFixed(2),return_quantity:item.sales_quantity } })
+        this.onSelectMaterial({ ...item, ...{ goods_spec: item.goods_spec || '', retail_price: item.sales_price.toFixed(2), return_quantity: item.sales_quantity } })
       })
     },
     handelAddAcount() {
@@ -437,7 +437,7 @@ export default {
         spec: item.goods_spec,
         unit: item.unit_name,
         return_quantity: item.sales_quantity,
-        sales_quantity:item.sales_quantity,
+        sales_quantity: item.sales_quantity,
         total_quantity: item.total_amount,
         return_price: item.retail_price,
         totalAmount: 1
@@ -526,6 +526,11 @@ export default {
       })
       this.materialItems = [];
       this.handelAddAcount();
+    },
+    filterOption(input, option) {
+      return (
+        option.componentOptions.children[0].text.toLowerCase().indexOf(input.toLowerCase()) >= 0
+      );
     },
   },
   mounted() {
